@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en-GB" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Profile | Professor Zhang</title>
+
+    <!-- 谷歌字体：Inter 用于正文，EB Garamond 用于标题（学术感） -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=EB+Garamond:wght@600;800&family=Roboto+Mono&display=swap"
+        rel="stylesheet">
+
+    <!-- 依赖库 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        /* 1. 主题变量 - 默认 Midnight Dark */
+        :root {
+            --primary: #80cbc4;
+            /* 柔和青色 */
+            --accent: #ffab91;
+            /* 柔和珊瑚红 */
+            --bg-page: #1a1c1e;
+            /* 护眼深灰 */
+            --bg-alt: #232629;
+            --text-main: #e1e2e1;
+            --text-muted: #9ba1a6;
+            --nav-bg: rgba(26, 28, 30, 0.9);
+            --border: #3c4043;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 亮色主题 - Oxford */
+        [data-theme="oxford"] {
+            --primary: #002147;
+            --accent: #b61c1c;
+            --bg-page: #ffffff;
+            --bg-alt: #f1f3f4;
+            --text-main: #1a1a1a;
+            --text-muted: #5f6368;
+            --nav-bg: rgba(255, 255, 255, 0.9);
+            --border: #dadce0;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 2. 基础排版 */
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.7;
+            transition: background 0.4s ease;
+        }
+
+        /* 3. 正圆头像与 Header */
+        header {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .avatar-container {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #eee;
+        }
+
+        h1 {
+            font-family: 'EB Garamond', serif;
+            font-size: 4rem;
+            margin: 0;
+            color: var(--primary);
+        }
+
+        .title-sub {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-top: 10px;
+        }
+
+        /* 4. 悬浮工具栏 (图标化) */
+        .fab-toolbar {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 2000;
+        }
+
+        .icon-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--bg-page);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .icon-btn:hover {
+            transform: scale(1.15) rotate(5deg);
+            background: var(--accent);
+        }
+
+        /* Tooltip 实现 */
+        .icon-btn::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            right: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #333;
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+        }
+
+        .icon-btn:hover::after {
+            opacity: 1;
+            right: 65px;
+        }
+
+        .theme-menu {
+            display: none;
+            position: absolute;
+            right: 60px;
+            top: 0;
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: var(--shadow);
+            z-index: 2001;
+        }
+
+        .theme-opt {
+            padding: 8px 15px;
+            cursor: pointer;
+            white-space: nowrap;
+            border-radius: 4px;
+            color: var(--text-main);
+        }
+
+        .theme-opt:hover {
+            background: var(--primary);
+            color: var(--bg-page);
+        }
+
+        /* 5. 内容区块与动效 */
+        section {
+            padding: 100px 15%;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        h2 {
+            font-family: 'EB Garamond', serif;
+            font-size: 2.8rem;
+            color: var(--primary);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+            margin-bottom: 40px;
+        }
+
+        .dual-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .cv-item {
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 0px solid var(--accent);
+            transition: 0.4s;
+            background: transparent;
+        }
+
+        .cv-item:hover {
+            background: var(--bg-alt);
+            border-left: 5px solid var(--accent);
+            transform: translateX(10px);
+        }
+
+        div.animate-card ul li {
+            margin-bottom: 3px;
+            padding: 2px;
+            border-radius: 10px;
+            border-left: 0px solid var(--accent);
+            transition: 0.4s;
+            background: transparent;
+        }
+
+        div.animate-card ul li:hover {
+            background: var(--bg-alt);
+            border-left: 3px solid var(--accent);
+            transform: translateX(3px);
+        }
+
+        /* .cv-item {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .cv-item:hover {
+            background: var(--bg-alt);
+            box-shadow: var(--shadow);
+        } */
+
+        .date {
+            font-family: 'Roboto Mono', monospace;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* 导航栏 */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            margin: 0 20px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            opacity: 0.7;
+            transition: 0.3s;
+        }
+
+        nav a.active {
+            opacity: 1;
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        /* PDF 导出专用样式 */
+        .pdf-export-only {
+            font-family: "Times New Roman", serif !important;
+            color: black !important;
+        }
+
+        @media (max-width: 768px) {
+            .dual-column {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 60px 8%;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 悬浮工具栏 -->
+    <div class="fab-toolbar">
+        <button class="icon-btn" id="theme-trigger" data-tooltip="switch theme">🎨
+            <div class="theme-menu">
+                <div class="theme-opt" onclick="setTheme('dark')">Midnight Dark</div>
+                <div class="theme-opt" onclick="setTheme('oxford')">Oxford Light</div>
+            </div>
+        </button>
+        <button class="icon-btn" onclick="exportAcademicPDF()" data-tooltip="export PDF">📄</button>
+    </div>
+
+    <header>
+        <div class="avatar-container">
+            <!-- 这里替换为您真实的头像 URL -->
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                alt="Profile" class="profile-pic">
+        </div>
+        <h1>Professor Alex Zhang</h1>
+        <div class="title-sub">Chair of Computational Ethics | Excellence University</div>
+        <p style="font-family: 'Roboto Mono'; margin-top: 20px;">alex.zhang@university.ac.uk</p>
+    </header>
+
+    <nav id="navbar">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#research">Research</a>
+        <a href="#education">Education</a>
+        <a href="#award">Awards</a>
+        <a href="#publications">Publications</a>
+    </nav>
+
+    <!-- 各 Section 内容 -->
+    <section id="about">
+        <h2>About Me</h2>
+        <p>这里是您的个人简介。本版本采用了基于 jQuery 的动态监听技术，当您向下滚动时，内容会带动画入场。默认主题已优化为适合长时间阅读的 Midnight 模式。头像使用了 CSS `aspect-ratio`
+            强制正圆，无论原始图片比例如何都不会变形。</p>
+    </section>
+
+    <section id="experience">
+        <h2>Working Experience</h2>
+        <div class="cv-item">
+            <div class="date">2020 - PRESENT</div>
+            <strong>Tenured Professor</strong>, Dept. of Computer Science
+            <p>Directing the Lab for Trustworthy AI and leading cross-disciplinary research programs.</p>
+        </div>
+        <div class="cv-item">
+            <div class="date">2015 - 2020</div>
+            <strong>Assistant Professor</strong>, Imperial College London
+        </div>
+    </section>
+
+    <section id="teaching">
+        <h2>Teaching & Supervision</h2>
+        <div class="dual-column">
+            <div class="animate-card">
+                <h3 style="color: var(--accent);">Course Leadership</h3>
+                <ul>
+                    <li>CS301: Deep Learning Systems</li>
+                    <li>PHI202: Ethics of Automation</li>
+                </ul>
+            </div>
+            <div class="animate-card">
+                <h3 style="color: var(--accent);">Supervision</h3>
+                <ul>
+                    <li>8 Active PhD Candidates</li>
+                    <li>20+ MSc Dissertations Supervised</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="research">
+        <h2>Research Interests</h2>
+        <div class="dual-column">
+            <div class="animate-card">
+                <h3 style="color: var(--accent);">Interests</h3>
+                <p>Machine Learning, Algorithmic Fairness, Natural Language Processing.</p>
+            </div>
+            <div class="animate-card">
+                <h3 style="color: var(--accent);">Projects</h3>
+                <p>UKRI Grant: "Towards Fairer Algorithms" (£2.1M, PI)</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <h2>Education History</h2>
+        <div class="cv-item" data-date="2008 - 2012">
+            <strong>PhD in Engineering</strong>, University of Cambridge
+            <p>Thesis: "Future Energy Systems and Sustainability"</p>
+        </div>
+        <div class="cv-item" data-date="2004 - 2008">
+            <strong>MEng (First Class Honours)</strong>, Imperial College London
+        </div>
+    </section>
+
+    <section id="award">
+        <h2>Awards & Honors</h2>
+        <div class="cv-item" data-date="2008 - 2012">
+            <strong>PhD in Engineering</strong>, University of Cambridge
+            <p>Thesis: "Future Energy Systems and Sustainability"</p>
+        </div>
+        <div class="cv-item" data-date="2004 - 2008">
+            <strong>MEng (First Class Honours)</strong>, Imperial College London
+        </div>
+    </section>
+
+    <section id="publications">
+        <h2>Selected Publications</h2>
+        <div class="cv-item">
+            <strong>Zhang, A.</strong> (2024). "The Geometry of Ethical Alignment". <em>Nature Communications</em>.
+        </div>
+        <div class="cv-item">
+            Li, W., & <strong>Zhang, A.</strong> (2022). "Privacy Preserving LLMs". <em>ICML Proceedings</em>.
+        </div>
+    </section>
+
+    <footer
+        style="padding: 60px; text-align: center; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem;">
+        &copy; 2024 Alex Zhang. Academic Profile Page.
+    </footer>
+
+    <!-- PDF 导出临时容器 -->
+    <div id="pdf-render-box" style="display:none;"></div>
+
+    <script>
+        // 1. 主题切换
+        $('#theme-trigger').click(function (e) {
+            e.stopPropagation();
+            $('.theme-menu').fadeToggle(200);
+        });
+        $(document).click(function () { $('.theme-menu').fadeOut(200); });
+        function setTheme(t) { $('html').attr('data-theme', t); }
+
+        // 2. 动画效果 (jQuery)
+        $(document).ready(function () {
+            // 初始化入场动画
+            const revealOnScroll = function () {
+                $('section').each(function () {
+                    const top = $(this).offset().top;
+                    const scroll = $(window).scrollTop();
+                    if (scroll + $(window).height() > top + 150) {
+                        $(this).animate({ opacity: 1, top: 0 }, 800); // 使用 animate 或添加 class
+                        $(this).css({ 'transform': 'translateY(0)', 'opacity': '1', 'transition': 'all 0.8s ease-out' });
+                    }
+                });
+            };
+
+            // 列表项悬停缩放 (jQuery hover)
+            $('.cv-item').hover(
+                function () { $(this).stop().animate({ paddingLeft: '25px' }, 200); },
+                function () { $(this).stop().animate({ paddingLeft: '15px' }, 200); }
+            );
+
+            // 滚动监听：高亮导航
+            $(window).scroll(function () {
+                revealOnScroll();
+                let scrollDistance = $(window).scrollTop();
+                $('section').each(function (i) {
+                    if ($(this).position().top <= scrollDistance + 100) {
+                        $('#navbar a.active').removeClass('active');
+                        $('#navbar a').eq(i).addClass('active');
+                    }
+                });
+            }).scroll();
+        });
+
+        // 3. 高质量 PDF 导出逻辑 (UK Academic CV 标准)
+        async function exportAcademicPDF() {
+            const renderBox = document.getElementById('pdf-render-box');
+            renderBox.innerHTML = '';
+            renderBox.style.display = 'block';
+
+            // 构建 PDF 的 HTML
+            let pdfContent = `
+                <div style="font-family: 'Times New Roman', serif; color: black; padding: 40px; line-height: 1.4;">
+                    <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 30px;">
+                        <h1 style="font-size: 24pt; margin: 0;">Alex Zhang</h1>
+                        <p style="font-size: 11pt; margin: 5px 0;">Professor of Computational Ethics, University of Excellence</p>
+                        <p style="font-size: 10pt;">Email: alex.zhang@university.ac.uk | Web: www.alexzhang.com</p>
+                    </div>
+            `;
+
+            // 遍历网页元素
+            $('section').each(function () {
+                const title = $(this).find('h2').text();
+                pdfContent += `<div style="margin-bottom: 25px;">
+                    <h2 style="font-size: 14pt; border-bottom: 1px solid #999; text-transform: uppercase; margin-bottom: 10px;">${title}</h2>
+                `;
+
+                // 处理双栏转化
+                if ($(this).find('.dual-column').length > 0) {
+                    $(this).find('.animate-card').each(function () {
+                        pdfContent += `<div style="margin-bottom: 10px;">${$(this).html()}</div>`;
+                    });
+                } else {
+                    let clone = $(this).clone();
+                    clone.find('h2').remove();
+                    pdfContent += clone.html();
+                }
+                pdfContent += `</div>`;
+            });
+
+            pdfContent += `</div>`;
+            renderBox.innerHTML = pdfContent;
+
+            const opt = {
+                margin: [10, 15, 10, 15],
+                filename: 'Academic_CV_Alex_Zhang.pdf',
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: { scale: 3, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+
+            await html2pdf().set(opt).from(renderBox).save();
+            renderBox.style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

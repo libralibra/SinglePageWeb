@@ -1,0 +1,458 @@
+/* --- Base Styles & Variables --- */
+:root {
+    --font-primary: 'Lato', sans-serif;
+    --font-secondary: 'Noto Sans', sans-serif;
+    --font-print: 'Georgia', serif;
+
+    /* Light Theme */
+    --bg-color-light: #ffffff;
+    --text-color-light: #212529;
+    --primary-color-light: #005a9c;
+    --secondary-color-light: #f8f9fa;
+    --accent-color-light: #d6336c;
+
+    /* Dark Theme (v3 - Softer, more elegant blue/slate) */
+    --bg-color-dark: #0f172a;
+    /* Slate 900 */
+    --text-color-dark: #cbd5e1;
+    /* Slate 300 */
+    --primary-color-dark: #7dd3fc;
+    /* Sky 300 */
+    --secondary-color-dark: #1e293b;
+    /* Slate 800 */
+    --accent-color-dark: #f472b6;
+    /* Pink 400 */
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-primary);
+    margin: 0;
+    padding-top: 60px;
+    /* Space for fixed nav */
+    line-height: 1.7;
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-theme {
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
+}
+
+.container {
+    max-width: 1140px;
+    /* Increased width */
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-secondary);
+    color: var(--primary-color-light);
+}
+
+h2::before {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 4px;
+    background-color: var(--primary-color-light);
+    margin-bottom: 15px;
+}
+
+body.dark-theme h2::before {
+    background-color: var(--primary-color-dark);
+}
+
+h3 {
+    border-bottom: 2px solid var(--secondary-color-light);
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+body.dark-theme h3 {
+    border-bottom-color: var(--secondary-color-dark);
+}
+
+
+body.dark-theme h1, body.dark-theme h2, body.dark-theme h3 {
+    color: var(--primary-color-dark);
+}
+
+a {
+    color: var(--accent-color-light);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: var(--primary-color-light);
+}
+
+body.dark-theme a {
+    color: var(--accent-color-dark);
+}
+
+body.dark-theme a:hover {
+    color: var(--primary-color-dark);
+}
+
+section {
+    padding: 60px 0;
+    border-bottom: 1px solid #e9ecef;
+    transition: background-color 0.3s;
+}
+
+section.section-alt {
+    background-color: var(--secondary-color-light);
+}
+
+body.dark-theme section {
+    border-bottom: 1px solid var(--secondary-color-dark);
+}
+
+body.dark-theme section.section-alt {
+    background-color: var(--secondary-color-dark);
+}
+
+section:last-of-type {
+    border-bottom: none;
+}
+
+/* --- Animation on Scroll --- */
+section h2 {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+section.is-visible h2 {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Two Column Layout --- */
+.two-column-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+@media (max-width: 768px) {
+    .two-column-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* --- Navigation --- */
+#top-nav {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(5px);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s;
+}
+
+body.dark-theme #top-nav {
+    background-color: rgba(30, 41, 59, 0.85);
+    /* Slate 800 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: var(--primary-color-light);
+}
+
+body.dark-theme .logo {
+    color: var(--primary-color-dark);
+}
+
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav a {
+    color: var(--text-color-light);
+    font-weight: bold;
+}
+
+body.dark-theme nav a {
+    color: var(--text-color-dark);
+}
+
+nav a:hover {
+    color: var(--primary-color-light);
+    text-decoration: none;
+}
+
+body.dark-theme nav a:hover {
+    color: var(--primary-color-dark);
+}
+
+/* --- Hero Section --- */
+.hero {
+    text-align: center;
+    padding: 60px 0;
+}
+
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 5px solid var(--secondary-color-light);
+}
+
+body.dark-theme .profile-pic {
+    border-color: var(--secondary-color-dark);
+}
+
+.social-links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.social-links a {
+    color: var(--text-color-light);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-links a:hover {
+    transform: scale(1.2);
+    color: var(--primary-color-light);
+}
+
+body.dark-theme .social-links a {
+    color: var(--text-color-dark);
+}
+
+body.dark-theme .social-links a:hover {
+    color: var(--primary-color-dark);
+}
+
+.social-links svg {
+    width: 28px;
+    height: 28px;
+}
+
+
+/* --- Publication List --- */
+.publication-list li {
+    margin-bottom: 15px;
+}
+
+/* --- Footer --- */
+#footer {
+    background-color: var(--secondary-color-light);
+    color: #6c757d;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9em;
+}
+
+body.dark-theme #footer {
+    background-color: var(--secondary-color-dark);
+    color: #94a3b8;
+    /* Slate 400 */
+}
+
+.powered-by {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.powered-by a {
+    color: var(--text-color-light);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.powered-by a:hover {
+    transform: scale(1.1);
+    color: var(--primary-color-light);
+}
+
+body.dark-theme .powered-by a {
+    color: var(--text-color-dark);
+}
+
+body.dark-theme .powered-by a:hover {
+    color: var(--primary-color-dark);
+}
+
+/* --- Controls: Theme Switcher & Print --- */
+#theme-switcher, #print-controls button {
+    background-color: transparent;
+    border: 1px solid #dee2e6;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color-light);
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+body.dark-theme #theme-switcher, body.dark-theme #print-controls button {
+    color: var(--text-color-dark);
+    border-color: #334155;
+    /* Slate 700 */
+}
+
+#theme-switcher:hover, #print-controls button:hover {
+    background-color: var(--secondary-color-light);
+}
+
+body.dark-theme #theme-switcher:hover, body.dark-theme #print-controls button:hover {
+    background-color: var(--secondary-color-dark);
+}
+
+#theme-switcher svg {
+    display: none;
+}
+
+body:not(.dark-theme) #theme-icon-moon,
+body.dark-theme #theme-icon-sun {
+    display: block;
+}
+
+#print-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    padding: 10px;
+    border-radius: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    display: flex;
+    gap: 8px;
+}
+
+body.dark-theme #print-controls {
+    background: rgba(30, 41, 59, 0.8);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+
+    nav ul li {
+        margin-left: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .two-column-layout {
+        grid-template-columns: 1fr;
+    }
+
+    nav ul {
+        display: none;
+        /* Simple hiding for mobile, can be replaced with a hamburger menu */
+    }
+
+    .nav-content {
+        justify-content: center;
+    }
+
+    .controls {
+        position: absolute;
+        right: 20px;
+    }
+}
+
+/* --- Print Styles for CV --- */
+@media print {
+    body {
+        padding-top: 0;
+        font-family: var(--font-print);
+        font-size: 10.5pt;
+        color: #000 !important;
+        background-color: #fff !important;
+    }
+
+    #top-nav, #print-controls, #footer, .hero .profile-pic {
+        display: none;
+    }
+
+    main {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    section {
+        padding: 10px 0;
+        /* Reduced padding for compact CV */
+        border-bottom: 1px solid #ccc;
+    }
+
+    h2 {
+        font-size: 1.3em;
+        margin-top: 5px;
+        margin-bottom: 8px;
+    }
+
+    h3 {
+        font-size: 1.1em;
+    }
+
+    .hero {
+        text-align: left;
+        padding: 15px 0;
+    }
+
+    a {
+        color: #000 !important;
+        text-decoration: none;
+    }
+
+    .publication-list a::after {
+        content: " ["attr(href) "]";
+        font-size: 0.9em;
+        color: #555;
+    }
+
+    ul {
+        padding-left: 20px;
+        margin: 0;
+    }
+}

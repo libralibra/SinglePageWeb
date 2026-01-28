@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Personal Academic Website</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Noto+Sans:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="dark-theme">
+
+    <header id="top-nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="#home" class="logo">Your Name</a>
+                <nav>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#working-experience">Experience</a></li>
+                        <li><a href="#teaching-supervision">Teaching & Supervision</a></li>
+                        <li><a href="#engagement">Engagement</a></li>
+                        <li><a href="#research">Research</a></li>
+                        <li><a href="#activity">Activities</a></li>
+                        <li><a href="#education">Education</a></li>
+                        <li><a href="#publication-list">Publications</a></li>
+                    </ul>
+                </nav>
+                <div class="controls">
+                    <button id="theme-switcher" title="Toggle Theme">
+                        <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <img src="https://media.istockphoto.com/id/1345388323/vector/human-silhouette-isolated-vector-icon.jpg?s=612x612&w=0&k=20&c=a1wg9LYywdqDUG-t9rifrf16XEdWZbWe7ajuYxJTxEI="
+                        alt="Your Name" class="profile-pic">
+                    <h1>Your Name</h1>
+                    <p>Your Title, Department, University</p>
+                    <div class="social-links">
+                        <!-- <a href="#" title="Google Scholar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path
+                                    d="M12 3C7.2 3 3.3 5.4 1 8.5L3.1 10.1C4.8 7.8 8.1 6 12 6C16.2 6 20 9.1 20 14C20 16.5 18.7 18.6 16.9 20L18.5 22.2C21.3 20.1 23 17.2 23 14C23 7.9 18.1 3 12 3Z" />
+                                <path
+                                    d="M5 14C5 11.2 7.2 9 10 9C10.9 9 11.7 9.2 12.4 9.6L10.2 13.2C8.6 13.1 7.2 13.3 6 13.8L5 14Z" />
+                            </svg>
+                        </a>
+                        <a href="#" title="LinkedIn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path
+                                    d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-11 5H5v11h3V8m-1.5-2.5a1.5 1.5 0 1 0 0 3a1.5 1.5 0 0 0 0-3M18 8h-2.5c-2.2 0-3.5 1.5-3.5 4v7h3v-6.5c0-1 .5-2 2-2s2 1 2 2V19h3v-7c0-4-2-6-5.5-6Z" />
+                            </svg>
+                        </a> -->
+                        <a href="#" title="Email">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M2 5c0-1.1.9-2 2-2h16c1.1 0 2 .9 2 2v14c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V5zm18 1L12 11.5 4 6v2l8 5.5 8-5.5V6zm0 12H4V9.5l8 5.5 8-5.5V18z" />
+                            </svg>
+                        </a>
+                        <a href="#" title="University Profile">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path d="M12 3L1 9l11 6l9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82Z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section-alt">
+            <div class="container">
+                <h2>About Me</h2>
+                <p>
+                    Placeholder text for your biography. Briefly introduce yourself, your academic background, and your
+                    journey.
+                    You can talk about your education, previous positions, and what brought you to your current role.
+                    This is a great place to make a personal connection with visitors.
+                </p>
+            </div>
+        </section>
+
+        <section id="working-experience">
+            <div class="container">
+                <h2>Working Experience</h2>
+                <ul>
+                    <li><strong>[Job Title]</strong>, [Company/Institution Name], [City, Country] (Year - Year/Present)
+                    </li>
+                    <li><strong>[Job Title]</strong>, [Company/Institution Name], [City, Country] (Year - Year)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="teaching-supervision" class="section-alt">
+            <div class="container">
+                <h2>Teaching & Supervision</h2>
+                <div class="two-column-layout">
+                    <div class="column">
+                        <h3>Teaching</h3>
+                        <p>Information about your teaching activities. You can list the courses you currently teach or
+                            have taught in the past.</p>
+                        <ul>
+                            <li>Course Code - Course Title (Semester/Year)</li>
+                            <li>Course Code - Course Title (Semester/Year)</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h3>Supervision</h3>
+                        <p>Information about PhD students or postdoctoral researchers you are supervising or have
+                            supervised.</p>
+                        <ul>
+                            <li><strong>Current:</strong> Student Name, "Thesis Topic"</li>
+                            <li><strong>Past:</strong> Student Name, "Thesis Topic" (Year)</li>
+                        </ul>
+                        <p>I am currently accepting new PhD students. Please <a href="#contact">contact me</a> if you
+                            are interested.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="engagement">
+            <div class="container">
+                <h2>Engagement</h2>
+                <p>Describe your public, professional, or academic engagement activities. This can include things like
+                    journal reviewing, conference organization, public talks, or collaborations with industry.</p>
+                <ul>
+                    <li>Reviewer for [Journal/Conference Name]</li>
+                    <li>Organizing committee member for [Conference Name]</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="research" class="section-alt">
+            <div class="container">
+                <h2>Research Interest &amp; Projects</h2>
+                <div class="two-column-layout">
+                    <div class="column">
+                        <h3>Interests</h3>
+                        <p>
+                            Describe your primary and secondary research interests here. You can list them or write a
+                            short paragraph about each.
+                            For example: My research focuses on [Your Field], with a special interest in [Specific Topic
+                            1], [Specific Topic 2], and [Specific Topic 3].
+                        </p>
+                        <ul>
+                            <li>Keyword 1</li>
+                            <li>Keyword 2</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h3>Projects</h3>
+                        <ul>
+                            <li><strong>Project Title 1:</strong> A brief description of the project, its goals, and
+                                your role.</li>
+                            <li><strong>Project Title 2:</strong> A brief description of the project, its goals, and
+                                your role.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="activity">
+            <div class="container">
+                <h2>Activities</h2>
+                <ul>
+                    <li>[Activity 1]: Description of your involvement and impact.</li>
+                    <li>[Activity 2]: Description of your involvement and impact.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="education" class="section-alt">
+            <div class="container">
+                <h2>Education</h2>
+                <ul>
+                    <li><strong>PhD in [Your Field]</strong>, University Name, City, Country (Year)</li>
+                    <li><strong>MSc in [Your Field]</strong>, University Name, City, Country (Year)</li>
+                    <li><strong>BSc in [Your Field]</strong>, University Name, City, Country (Year)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="publication-list">
+            <div class="container">
+                <h2>Publication List</h2>
+                <p>A selection of your key publications. You can organize them by year or type (e.g., journal articles,
+                    conference papers, books).</p>
+                <ul class="publication-list">
+                    <li>Author(s), (Year). "Title of Publication." <em>Journal/Conference Name</em>, Volume(Issue),
+                        pages. <a href="#">[DOI/Link]</a></li>
+                    <li>Author(s), (Year). "Title of Publication." <em>Journal/Conference Name</em>, Volume(Issue),
+                        pages. <a href="#">[DOI/Link]</a></li>
+                    <li>Author(s), (Year). "Title of Publication." <em>Journal/Conference Name</em>, Volume(Issue),
+                        pages. <a href="#">[DOI/Link]</a></li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer" class="section-alt">
+        <div class="container">
+            <p>&copy; <span id="current-year"></span> Your Name. All rights reserved.</p>
+            <div class="powered-by">
+                <span style="font-size: 0.9em; margin-right: 10px;">Powered by</span>
+                <a href="https://html.spec.whatwg.org/" title="HTML5">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24"
+                        height="24">
+                        <path fill-rule="evenodd"
+                            d="M1.5 0h21l-1.9 21.2L12 24l-8.6-2.8L1.5 0zm15.6 5H6.3l.6 7.2h7.9l-.4 4.1-2.4.7-2.4-.7-.1-1.8H7.2l.3 4.4 4.5 1.2 4.5-1.2.7-8.7H9.7l-.2-2.3h7.7L17.1 5z" />
+                    </svg>
+                </a>
+                <a href="https://www.w3.org/Style/CSS/Specs.html" title="CSS3">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24"
+                        height="24">
+                        <path fill-rule="evenodd"
+                            d="M1.5 0h21l-1.9 21.2L12 24l-8.6-2.8L1.5 0zm16.3 4.7H6.2l.2 2.3h10l-.2 2.3H9.4l.2 2.3h7l-.4 4.1-2.7.7-2.7-.7-.2-1.8H7l.4 4.4 4.6 1.2 4.6-1.2 1.2-13.6z" />
+                    </svg>
+                </a>
+                <a href="https://www.javascript.com/" title="JavaScript">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24"
+                        height="24">
+                        <path fill-rule="evenodd"
+                            d="M1.5 0h21l-1.9 21.2L12 24l-8.6-2.8L1.5 0zm9.5 5v13H6.5v-2.5h2V5H11zm7.5 0h-5.5v7.5h3.5v2.5h-3.5v3h6V9H16V7.5h2.5V5z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="print-controls">
+        <button id="export-pdf-color" title="Export to PDF (Color)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <circle cx="10.5" cy="14.5" r="2.5"></circle>
+                <path d="m14.2 10.7 3.1 3.1"></path>
+                <circle cx="15.5" cy="14.5" r="2.5"></circle>
+            </svg>
+        </button>
+        <button id="export-pdf-text" title="Export to PDF (Text-Only)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+        </button>
+        <button id="export-pdf-bw" title="Export to PDF (B&W)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <path d="M12 18a6 6 0 0 0-6-6v6Z"></path>
+                <path d="M12 12a6 6 0 0 1 6 6v-6Z"></path>
+            </svg>
+        </button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
