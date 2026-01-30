@@ -6,24 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Academic Profile | Professor Zhang</title>
 
-    <!-- 谷歌字体：Inter 用于正文，EB Garamond 用于标题（学术感） -->
+    <!-- Google Fonts: Inter for body text, EB Garamond for academic-style headings -->
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=EB+Garamond:wght@600;800&family=Roboto+Mono&display=swap"
         rel="stylesheet">
 
-    <!-- 依赖库 -->
+    <!-- Dependencies -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
-        /* 1. 主题变量 - 默认 Midnight Dark */
+        /* 1. Theme Variables - Default Midnight Dark */
         :root {
             --primary: #80cbc4;
-            /* 柔和青色 */
+            /* Soft teal */
             --accent: #ffab91;
-            /* 柔和珊瑚红 */
+            /* Soft coral red */
             --bg-page: #1a1c1e;
-            /* 护眼深灰 */
+            /* Eye-friendly dark grey */
             --bg-alt: #232629;
             --text-main: #e1e2e1;
             --text-muted: #9ba1a6;
@@ -32,7 +31,7 @@
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
-        /* 亮色主题 - Oxford */
+        /* Light Theme - Oxford */
         [data-theme="oxford"] {
             --primary: #002147;
             --accent: #b61c1c;
@@ -45,7 +44,7 @@
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        /* 2. 基础排版 */
+        /* 2. Base Typography */
         body {
             margin: 0;
             font-family: 'Inter', sans-serif;
@@ -55,8 +54,8 @@
             transition: background 0.4s ease;
         }
 
-        /* 3. 正圆头像与 Header */
-        header {
+        /* 3. Circular Avatar & Header */
+        header#home {
             height: 80vh;
             display: flex;
             flex-direction: column;
@@ -65,6 +64,15 @@
             text-align: center;
             padding: 20px;
             position: relative;
+        }
+        
+        /* FIX: Re-center hero content */
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
         }
 
         .avatar-container {
@@ -98,8 +106,12 @@
             font-weight: 400;
             margin-top: 10px;
         }
+        
+        .social-links {
+            margin-top: 20px;
+        }
 
-        /* 4. 悬浮工具栏 (图标化) */
+        /* 4. Floating Action Button Toolbar (Icon-based) */
         .fab-toolbar {
             position: fixed;
             top: 30px;
@@ -131,7 +143,7 @@
             background: var(--accent);
         }
 
-        /* Tooltip 实现 */
+        /* Tooltip Implementation */
         .icon-btn::after {
             content: attr(data-tooltip);
             position: absolute;
@@ -180,9 +192,10 @@
             color: var(--bg-page);
         }
 
-        /* 5. 内容区块与动效 */
+        /* 5. Content Sections & Animations */
         section {
             padding: 100px 15%;
+            /* FIX: Restore initial state for animations */
             opacity: 0;
             transform: translateY(30px);
         }
@@ -195,14 +208,20 @@
             padding-bottom: 10px;
             margin-bottom: 40px;
         }
+        
+        h3 {
+             color: var(--accent);
+        }
 
         .dual-column {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 50px;
         }
-
-        .cv-item {
+        
+        /* FIX: Change selector from .cv-item to li.cv-item */
+        li.cv-item {
+            list-style: none;
             margin-bottom: 20px;
             padding: 20px;
             border-radius: 12px;
@@ -211,13 +230,13 @@
             background: transparent;
         }
 
-        .cv-item:hover {
+        li.cv-item:hover {
             background: var(--bg-alt);
             border-left: 5px solid var(--accent);
             transform: translateX(10px);
         }
 
-        div.animate-card ul li {
+        .animate-card ul li {
             margin-bottom: 3px;
             padding: 2px;
             border-radius: 10px;
@@ -226,23 +245,11 @@
             background: transparent;
         }
 
-        div.animate-card ul li:hover {
+        .animate-card ul li:hover {
             background: var(--bg-alt);
             border-left: 3px solid var(--accent);
             transform: translateX(3px);
         }
-
-        /* .cv-item {
-            margin-bottom: 25px;
-            padding: 15px;
-            border-radius: 8px;
-            transition: 0.3s;
-        }
-
-        .cv-item:hover {
-            background: var(--bg-alt);
-            box-shadow: var(--shadow);
-        } */
 
         .date {
             font-family: 'Roboto Mono', monospace;
@@ -250,7 +257,7 @@
             font-weight: bold;
         }
 
-        /* 导航栏 */
+        /* Navigation Bar */
         nav {
             position: sticky;
             top: 0;
@@ -277,12 +284,6 @@
             border-bottom: 2px solid var(--primary);
         }
 
-        /* PDF 导出专用样式 */
-        .pdf-export-only {
-            font-family: "Times New Roman", serif !important;
-            color: black !important;
-        }
-
         @media (max-width: 768px) {
             .dual-column {
                 grid-template-columns: 1fr;
@@ -301,7 +302,7 @@
 
 <body>
 
-    <!-- 悬浮工具栏 -->
+    <!-- Floating Action Button Toolbar -->
     <div class="fab-toolbar">
         <button class="icon-btn" id="theme-trigger" data-tooltip="switch theme">🎨
             <div class="theme-menu">
@@ -309,18 +310,23 @@
                 <div class="theme-opt" onclick="setTheme('oxford')">Oxford Light</div>
             </div>
         </button>
-        <button class="icon-btn" onclick="exportAcademicPDF()" data-tooltip="export PDF">📄</button>
+        <button class="icon-btn" id="export-pdf" data-tooltip="export PDF">📄</button>
     </div>
 
-    <header>
-        <div class="avatar-container">
-            <!-- 这里替换为您真实的头像 URL -->
-            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                alt="Profile" class="profile-pic">
+    <!-- The header is the 'home' section -->
+    <header id="home">
+        <div class="hero-content">
+            <div class="avatar-container">
+                <img src="head.jpg" alt="Profile" class="profile-pic">
+            </div>
+            <h1>Professor Alex Zhang</h1>
+            <p class="title-sub">Chair of Computational Ethics | Excellence University</p>
+            <div class="social-links">
+                 <a href="mailto:alex.zhang@university.ac.uk" title="Email" class="email" style="font-family: 'Roboto Mono'; margin-top: 20px; color: var(--text-muted); text-decoration: none;">
+                    alex.zhang@university.ac.uk
+                </a>
+            </div>
         </div>
-        <h1>Professor Alex Zhang</h1>
-        <div class="title-sub">Chair of Computational Ethics | Excellence University</div>
-        <p style="font-family: 'Roboto Mono'; margin-top: 20px;">alex.zhang@university.ac.uk</p>
     </header>
 
     <nav id="navbar">
@@ -333,102 +339,126 @@
         <a href="#publications">Publications</a>
     </nav>
 
-    <!-- 各 Section 内容 -->
-    <section id="about">
-        <h2>About Me</h2>
-        <p>这里是您的个人简介。本版本采用了基于 jQuery 的动态监听技术，当您向下滚动时，内容会带动画入场。默认主题已优化为适合长时间阅读的 Midnight 模式。头像使用了 CSS `aspect-ratio`
-            强制正圆，无论原始图片比例如何都不会变形。</p>
-    </section>
+    <!-- All content sections are wrapped in 'main' for the PDF script to find them -->
+    <main id="main-content">
+        <section id="about">
+             <div class="container">
+                <h2>About Me</h2>
+                <p>This is your personal biography. This version uses jQuery-based dynamic monitoring. When you scroll down, the content will enter with an animation. The default theme has been optimised as a 'Midnight' mode for extended reading. The avatar uses CSS 'aspect-ratio' to force a perfect circle, so it will not deform regardless of the original image's aspect ratio.</p>
+            </div>
+        </section>
 
-    <section id="experience">
-        <h2>Working Experience</h2>
-        <div class="cv-item">
-            <div class="date">2020 - PRESENT</div>
-            <strong>Tenured Professor</strong>, Dept. of Computer Science
-            <p>Directing the Lab for Trustworthy AI and leading cross-disciplinary research programs.</p>
-        </div>
-        <div class="cv-item">
-            <div class="date">2015 - 2020</div>
-            <strong>Assistant Professor</strong>, Imperial College London
-        </div>
-    </section>
-
-    <section id="teaching">
-        <h2>Teaching & Supervision</h2>
-        <div class="dual-column">
-            <div class="animate-card">
-                <h3 style="color: var(--accent);">Course Leadership</h3>
+        <section id="experience">
+            <div class="container">
+                <h2>Working Experience</h2>
+                <!-- FIX: Changed from divs to a ul with li.cv-item -->
                 <ul>
-                    <li>CS301: Deep Learning Systems</li>
-                    <li>PHI202: Ethics of Automation</li>
+                    <li class="cv-item">
+                        <div class="date">2020 - PRESENT</div>
+                        <strong>Tenured Professor</strong>, Dept. of Computer Science
+                        <p>Directing the Lab for Trustworthy AI and leading cross-disciplinary research programmes.</p>
+                    </li>
+                    <li class="cv-item">
+                        <div class="date">2015 - 2020</div>
+                        <strong>Assistant Professor</strong>, Imperial College London
+                    </li>
                 </ul>
             </div>
-            <div class="animate-card">
-                <h3 style="color: var(--accent);">Supervision</h3>
-                <ul>
-                    <li>8 Active PhD Candidates</li>
-                    <li>20+ MSc Dissertations Supervised</li>
+        </section>
+
+        <section id="teaching">
+            <div class="container">
+                <h2>Teaching & Supervision</h2>
+                <!-- FIX: Added 'two-column-layout' class for PDF script -->
+                <div class="dual-column two-column-layout">
+                    <!-- FIX: Added 'column' class for PDF script -->
+                    <div class="animate-card column">
+                        <h3>Course Leadership</h3>
+                        <ul>
+                            <li>CS301: Deep Learning Systems</li>
+                            <li>PHI202: Ethics of Automation</li>
+                        </ul>
+                    </div>
+                    <div class="animate-card column">
+                        <h3>Supervision</h3>
+                        <ul>
+                            <li>8 Active PhD Candidates</li>
+                            <li>20+ MSc Dissertations Supervised</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="research">
+            <div class="container">
+                <h2>Research Interests</h2>
+                 <!-- FIX: Added 'two-column-layout' class for PDF script -->
+                <div class="dual-column two-column-layout">
+                    <!-- FIX: Added 'column' class for PDF script -->
+                    <div class="animate-card column">
+                        <h3>Interests</h3>
+                        <p>Machine Learning, Algorithmic Fairness, Natural Language Processing.</p>
+                    </div>
+                    <div class="animate-card column">
+                        <h3>Projects</h3>
+                        <p>UKRI Grant: "Towards Fairer Algorithms" (£2.1M, PI)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education">
+            <div class="container">
+                <h2>Education History</h2>
+                <!-- FIX: Changed from divs to a ul with li.cv-item -->
+                 <ul>
+                    <li class="cv-item">
+                        <strong>PhD in Engineering</strong>, University of Cambridge (2008 - 2012)
+                        <p>Thesis: "Future Energy Systems and Sustainability"</p>
+                    </li>
+                    <li class="cv-item">
+                        <strong>MEng (First Class Honours)</strong>, Imperial College London (2004 - 2008)
+                    </li>
                 </ul>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="research">
-        <h2>Research Interests</h2>
-        <div class="dual-column">
-            <div class="animate-card">
-                <h3 style="color: var(--accent);">Interests</h3>
-                <p>Machine Learning, Algorithmic Fairness, Natural Language Processing.</p>
+        <section id="award">
+             <div class="container">
+                <h2>Awards & Honors</h2>
+                <!-- FIX: Changed from divs to a ul with li.cv-item -->
+                <ul>
+                     <li class="cv-item">
+                        <strong>Best Paper Award</strong>, NeurIPS Conference (2021)
+                        <p>For outstanding contributions to machine learning theory.</p>
+                    </li>
+                     <li class="cv-item">
+                        <strong>Turing Fellowship</strong>, The Alan Turing Institute (2019)
+                    </li>
+                </ul>
             </div>
-            <div class="animate-card">
-                <h3 style="color: var(--accent);">Projects</h3>
-                <p>UKRI Grant: "Towards Fairer Algorithms" (£2.1M, PI)</p>
+        </section>
+
+        <section id="publications">
+            <div class="container">
+                <h2>Selected Publications</h2>
+                <!-- FIX: Changed to ul and li.cv-item, keeping publication-list for potential specific styling -->
+                <ul class="publication-list">
+                    <li class="cv-item"><strong>Zhang, A.</strong> (2024). "The Geometry of Ethical Alignment". <em>Nature Communications</em>. <a href="https://doi.org/10.1038/s41467-024-12345-6">https://doi.org/10.1038/s41467-024-12345-6</a></li>
+                    <li class="cv-item">Li, W., & <strong>Zhang, A.</strong> (2022). "Privacy Preserving LLMs". <em>ICML Proceedings</em>. <a href="https://proceedings.mlr.press/v162/li22a.html">https://proceedings.mlr.press/v162/li22a.html</a></li>
+                </ul>
             </div>
-        </div>
-    </section>
-
-    <section id="education">
-        <h2>Education History</h2>
-        <div class="cv-item" data-date="2008 - 2012">
-            <strong>PhD in Engineering</strong>, University of Cambridge
-            <p>Thesis: "Future Energy Systems and Sustainability"</p>
-        </div>
-        <div class="cv-item" data-date="2004 - 2008">
-            <strong>MEng (First Class Honours)</strong>, Imperial College London
-        </div>
-    </section>
-
-    <section id="award">
-        <h2>Awards & Honors</h2>
-        <div class="cv-item" data-date="2008 - 2012">
-            <strong>PhD in Engineering</strong>, University of Cambridge
-            <p>Thesis: "Future Energy Systems and Sustainability"</p>
-        </div>
-        <div class="cv-item" data-date="2004 - 2008">
-            <strong>MEng (First Class Honours)</strong>, Imperial College London
-        </div>
-    </section>
-
-    <section id="publications">
-        <h2>Selected Publications</h2>
-        <div class="cv-item">
-            <strong>Zhang, A.</strong> (2024). "The Geometry of Ethical Alignment". <em>Nature Communications</em>.
-        </div>
-        <div class="cv-item">
-            Li, W., & <strong>Zhang, A.</strong> (2022). "Privacy Preserving LLMs". <em>ICML Proceedings</em>.
-        </div>
-    </section>
+        </section>
+    </main>
 
     <footer
         style="padding: 60px; text-align: center; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem;">
         &copy; 2024 Alex Zhang. Academic Profile Page.
     </footer>
 
-    <!-- PDF 导出临时容器 -->
-    <div id="pdf-render-box" style="display:none;"></div>
-
     <script>
-        // 1. 主题切换
+        // 1. Theme Switcher (jQuery)
         $('#theme-trigger').click(function (e) {
             e.stopPropagation();
             $('.theme-menu').fadeToggle(200);
@@ -436,27 +466,27 @@
         $(document).click(function () { $('.theme-menu').fadeOut(200); });
         function setTheme(t) { $('html').attr('data-theme', t); }
 
-        // 2. 动画效果 (jQuery)
+        // 2. Animation Effects (jQuery)
         $(document).ready(function () {
-            // 初始化入场动画
+            // Initialise reveal-on-scroll animation
             const revealOnScroll = function () {
                 $('section').each(function () {
                     const top = $(this).offset().top;
                     const scroll = $(window).scrollTop();
                     if (scroll + $(window).height() > top + 150) {
-                        $(this).animate({ opacity: 1, top: 0 }, 800); // 使用 animate 或添加 class
+                        // The CSS transition will handle the animation now
                         $(this).css({ 'transform': 'translateY(0)', 'opacity': '1', 'transition': 'all 0.8s ease-out' });
                     }
                 });
             };
 
-            // 列表项悬停缩放 (jQuery hover)
-            $('.cv-item').hover(
+            // FIX: Selector changed from .cv-item to li.cv-item for hover effect
+            $('li.cv-item').hover(
                 function () { $(this).stop().animate({ paddingLeft: '25px' }, 200); },
                 function () { $(this).stop().animate({ paddingLeft: '15px' }, 200); }
             );
 
-            // 滚动监听：高亮导航
+            // Scroll listener for navigation highlighting
             $(window).scroll(function () {
                 revealOnScroll();
                 let scrollDistance = $(window).scrollTop();
@@ -469,58 +499,12 @@
             }).scroll();
         });
 
-        // 3. 高质量 PDF 导出逻辑 (UK Academic CV 标准)
-        async function exportAcademicPDF() {
-            const renderBox = document.getElementById('pdf-render-box');
-            renderBox.innerHTML = '';
-            renderBox.style.display = 'block';
-
-            // 构建 PDF 的 HTML
-            let pdfContent = `
-                <div style="font-family: 'Times New Roman', serif; color: black; padding: 40px; line-height: 1.4;">
-                    <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 30px;">
-                        <h1 style="font-size: 24pt; margin: 0;">Alex Zhang</h1>
-                        <p style="font-size: 11pt; margin: 5px 0;">Professor of Computational Ethics, University of Excellence</p>
-                        <p style="font-size: 10pt;">Email: alex.zhang@university.ac.uk | Web: www.alexzhang.com</p>
-                    </div>
-            `;
-
-            // 遍历网页元素
-            $('section').each(function () {
-                const title = $(this).find('h2').text();
-                pdfContent += `<div style="margin-bottom: 25px;">
-                    <h2 style="font-size: 14pt; border-bottom: 1px solid #999; text-transform: uppercase; margin-bottom: 10px;">${title}</h2>
-                `;
-
-                // 处理双栏转化
-                if ($(this).find('.dual-column').length > 0) {
-                    $(this).find('.animate-card').each(function () {
-                        pdfContent += `<div style="margin-bottom: 10px;">${$(this).html()}</div>`;
-                    });
-                } else {
-                    let clone = $(this).clone();
-                    clone.find('h2').remove();
-                    pdfContent += clone.html();
-                }
-                pdfContent += `</div>`;
-            });
-
-            pdfContent += `</div>`;
-            renderBox.innerHTML = pdfContent;
-
-            const opt = {
-                margin: [10, 15, 10, 15],
-                filename: 'Academic_CV_Alex_Zhang.pdf',
-                image: { type: 'jpeg', quality: 1 },
-                html2canvas: { scale: 3, useCORS: true },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-            };
-
-            await html2pdf().set(opt).from(renderBox).save();
-            renderBox.style.display = 'none';
-        }
+        // The old PDF export function has been removed.
     </script>
+
+    <!-- Scripts for PDF Generation -->
+    <script src="jspdf.umd.min.js"></script>
+    <script src="working_script.js"></script>
 </body>
 
 </html>
