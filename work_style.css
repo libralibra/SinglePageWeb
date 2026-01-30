@@ -1,0 +1,294 @@
+/* 1. Theme Variables - Default Midnight Dark */
+:root {
+    --primary: #80cbc4;
+    /* Soft teal */
+    --accent: #ffab91;
+    /* Soft coral red */
+    --bg-page: #1a1c1e;
+    /* Eye-friendly dark grey */
+    --bg-alt: #232629;
+    --text-main: #e1e2e1;
+    --text-muted: #9ba1a6;
+    --nav-bg: rgba(26, 28, 30, 0.9);
+    --border: #3c4043;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Light Theme - light */
+[data-theme="light"] {
+    --primary: #002147;
+    --accent: #b61c1c;
+    --bg-page: #ffffff;
+    --bg-alt: #f1f3f4;
+    --text-main: #1a1a1a;
+    --text-muted: #5f6368;
+    --nav-bg: rgba(255, 255, 255, 0.9);
+    --border: #dadce0;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 2. Base Typography */
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    line-height: 1.7;
+    transition: background 0.5s ease;
+}
+
+/* 3. Circular Avatar & Header */
+header#home {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+}
+
+/* FIX: Re-center hero content */
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.avatar-container {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    padding: 5px;
+    background: linear-gradient(45deg, var(--primary), var(--accent));
+    margin-bottom: 25px;
+    box-shadow: var(--shadow);
+}
+
+.profile-pic {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #eee;
+}
+
+h1 {
+    font-family: 'EB Garamond', serif;
+    font-size: 4rem;
+    margin: 0;
+    color: var(--primary);
+}
+
+.title-sub {
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-top: 10px;
+}
+
+.social-links {
+    margin-top: 20px;
+}
+
+/* 4. Floating Action Button Toolbar (Icon-based) */
+.fab-toolbar {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 2000;
+}
+
+.icon-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: var(--bg-page);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transition: 0.3s;
+}
+
+.icon-btn:hover {
+    transform: scale(1.15) rotate(5deg);
+    background: var(--accent);
+}
+
+/* Tooltip Implementation */
+.icon-btn::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #333;
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+.icon-btn:hover::after {
+    opacity: 1;
+    right: 65px;
+}
+
+/* Toggle icon visibility */
+.theme-icon-light,
+[data-theme="dark"] .theme-icon-dark {
+    display: none;
+}
+
+[data-theme="dark"] .theme-icon-light {
+    display: inline;
+}
+
+[data-theme="light"] .theme-icon-dark {
+    display: inline;
+}
+
+[data-theme="light"] .theme-icon-light {
+    display: none;
+}
+
+/* 5. Content Sections & Animations */
+section {
+    padding: 100px 15%;
+    /* FIX: Restore initial state for animations */
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+h2 {
+    font-family: 'EB Garamond', serif;
+    font-size: 2.8rem;
+    color: var(--primary);
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 10px;
+    margin-bottom: 40px;
+}
+
+h3 {
+    color: var(--accent);
+}
+
+.dual-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+
+/* FIX: Change selector from .cv-item to li.cv-item */
+li.cv-item {
+    list-style: none;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 0px solid var(--accent);
+    transition: 0.4s;
+    background: transparent;
+}
+
+li.cv-item:hover {
+    background: var(--bg-alt);
+    border-left: 5px solid var(--accent);
+    transform: translateX(10px);
+}
+
+.animate-card ul li {
+    margin-bottom: 3px;
+    padding: 2px;
+    border-radius: 10px;
+    border-left: 0px solid var(--accent);
+    transition: 0.4s;
+    background: transparent;
+}
+
+.animate-card ul li:hover {
+    background: var(--bg-alt);
+    border-left: 3px solid var(--accent);
+    transform: translateX(3px);
+}
+
+.date {
+    font-family: 'Roboto Mono', monospace;
+    color: var(--accent);
+    font-weight: bold;
+}
+
+/* Links */
+a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: var(--primary);
+}
+
+/* Ensure publications links are also styled correctly */
+#publications a {
+    color: var(--accent);
+}
+
+#publications a:hover {
+    color: var(--primary);
+}
+
+/* Navigation Bar */
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--nav-bg);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 15px;
+    text-align: center;
+}
+
+nav a {
+    margin: 0 20px;
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 600;
+    opacity: 0.7;
+    transition: 0.3s;
+}
+
+nav a.active {
+    opacity: 1;
+    color: var(--primary);
+    border-bottom: 2px solid var(--primary);
+}
+
+@media (max-width: 768px) {
+    .dual-column {
+        grid-template-columns: 1fr;
+    }
+
+    section {
+        padding: 60px 8%;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+}

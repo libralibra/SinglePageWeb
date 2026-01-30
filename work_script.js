@@ -28,11 +28,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 pageCount++;
                 cursorY = margin;
                 if (pageCount > 1) {
-                    addHeaderFooter(true); 
+                    addHeaderFooter(true);
                 }
             }
         };
-        
+
         const addHeaderFooter = (isSubsequentPage = false) => {
             const d = new Date();
             const versionString = `v.${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             doc.text(versionString, pageWidth - margin, margin / 2, { align: 'right' });
             doc.text(`${pageCount}`, pageWidth / 2, pageHeight - margin / 2, { align: 'center' });
         };
-        
+
         const finaliseHeaderFooter = () => {
             for (let i = 1; i <= pageCount; i++) {
                 doc.setPage(i);
@@ -67,34 +67,34 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- Content Generation ---
         doc.setFont('Helvetica', 'normal');
         doc.setTextColor(0, 0, 0);
-        
+
         const emailElement = document.querySelector('.hero-content .email');
         let emailText = "";
         let emailHref = "";
 
         if (emailElement) {
-            emailHref = emailElement.getAttribute('href'); 
-            emailText = emailHref.replace(/^mailto:/i, ''); 
+            emailHref = emailElement.getAttribute('href');
+            emailText = emailHref.replace(/^mailto:/i, '');
         }
 
         const heroName = document.querySelector('#home h1');
         const heroTitle = document.querySelector('#home p.title-sub');
-        
+
         doc.setFont('Helvetica', 'bold');
         doc.setFontSize(22);
         cursorY += 10;
         doc.text(heroName.textContent.trim(), pageWidth / 2, cursorY, { align: 'center' });
-        
+
         cursorY += 20;
         doc.setFont('Helvetica', 'normal');
         doc.setFontSize(11);
         doc.text(heroTitle.textContent.trim(), pageWidth / 2, cursorY, { align: 'center' });
-        
+
         if (emailText) {
             cursorY += 15;
             doc.setFontSize(10);
             doc.setTextColor(100);
-            
+
             const textWidth = doc.getTextWidth(emailText);
             const textX = (pageWidth - textWidth) / 2;
             doc.text(emailText, pageWidth / 2, cursorY, { align: 'center' });
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 doc.link(textX, cursorY - 10, textWidth, 12, { url: emailHref });
             }
         }
-        
+
         cursorY += 20;
         doc.setDrawColor(200);
         doc.line(margin, cursorY, pageWidth - margin, cursorY);
@@ -177,21 +177,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function addCvItem(li) {
             checkPageBreak(40);
-        
+
             const dateText = li.querySelector('.date')?.textContent.trim() || '';
             const strongText = li.querySelector('strong')?.textContent.trim() || '';
             const pText = li.querySelector('p')?.textContent.trim() || '';
-            
+
             const liClone = li.cloneNode(true);
             liClone.querySelector('.date')?.remove();
             liClone.querySelector('strong')?.remove();
             liClone.querySelector('p')?.remove();
             const remainingText = liClone.textContent.replace(/\s+/g, ' ').trim();
-        
+
             const mainLineText = [strongText, remainingText].filter(Boolean).join(' ');
-        
+
             doc.text('•', margin, cursorY);
-        
+
             // MODIFICATION: Set font to normal instead of bold
             doc.setFont('Helvetica', 'normal');
             doc.setFontSize(11);
@@ -201,17 +201,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const mainLines = doc.splitTextToSize(mainLineText, availableWidth);
             doc.text(mainLines, margin + 15, cursorY);
             let height = mainLines.length * 12;
-        
-            if(dateText) {
+
+            if (dateText) {
                 doc.setFont('Helvetica', 'normal');
                 doc.setFontSize(10);
                 doc.setTextColor(150);
                 const dateWidth = doc.getTextWidth(dateText);
                 doc.text(dateText, pageWidth - margin - dateWidth, cursorY);
             }
-            
+
             cursorY += height;
-        
+
             if (pText) {
                 cursorY += 5;
                 doc.setFont('Times', 'normal');
@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 doc.text(pLines, margin + 25, cursorY);
                 cursorY += pLines.length * 12;
             }
-        
+
             cursorY += 10;
         }
 
@@ -234,20 +234,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     doc.setFont('Times', 'normal');
                     doc.setFontSize(11);
                     doc.setTextColor(0, 0, 0);
-        
+
                     let fullText = li.textContent.replace(/\s+/g, ' ').trim();
-                    
+
                     const link = li.querySelector('a');
                     if (link) {
                         fullText = fullText.replace(link.textContent.trim(), ` ${link.href}`);
                     }
-        
+
                     const lines = doc.splitTextToSize(fullText, contentWidth - 15);
                     checkPageBreak(lines.length * 12 + 5);
-        
+
                     doc.text('•', margin, cursorY);
                     doc.text(lines, margin + 15, cursorY);
-        
+
                     cursorY += lines.length * 12 + 5;
                 }
             }
@@ -255,33 +255,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
         addHeaderFooter(false);
         finaliseHeaderFooter();
-        
+
         const rawName = document.querySelector('#home h1')?.textContent.trim() || "Academic";
         const fileName = `${rawName.replace(/\s+/g, '_')}_cv.pdf`;
-        
+
         doc.save(fileName);
     };
 
     // --- Event Listeners ---
-    
-    // 1. Theme Switcher
+
+    // Theme Switcher
     const themeSwitcher = document.getElementById('theme-switcher');
     if (themeSwitcher) {
         themeSwitcher.addEventListener('click', () => {
             const html = document.documentElement;
             const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'oxford' : 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             html.setAttribute('data-theme', newTheme);
-            const newTooltip = newTheme === 'dark' ? 'Switch to Oxford Light theme' : 'Switch to Midnight Dark theme';
+            const newTooltip = newTheme === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark theme';
             themeSwitcher.setAttribute('data-tooltip', newTooltip);
         });
     }
 
-    // 2. PDF Export
+    // PDF Export
     const pdfButton = document.getElementById('export-pdf');
     if (pdfButton) {
         pdfButton.addEventListener('click', exportPDF);
     }
+
+    // --- Dynamic Year Update ---
+    document.getElementById('current-year').textContent = new Date().getFullYear();
 
     // --- Animations & Scroll Effects ---
     const sections = document.querySelectorAll('section');
@@ -305,12 +308,12 @@ document.addEventListener('DOMContentLoaded', () => {
         sections.forEach((sec, i) => {
             if (sec.offsetTop <= scrollTop + 100) {
                 navLinks.forEach(link => link.classList.remove('active'));
-                if(navLinks[i]) navLinks[i].classList.add('active');
+                if (navLinks[i]) navLinks[i].classList.add('active');
                 activeFound = true;
             }
         });
         if (!activeFound && navLinks.length > 0) {
-             navLinks.forEach(link => link.classList.remove('active'));
+            navLinks.forEach(link => link.classList.remove('active'));
         }
     };
 

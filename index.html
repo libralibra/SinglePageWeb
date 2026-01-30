@@ -1,255 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Personal Academic Website</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Academic Profile | Professor John Doe</title>
+
+    <!-- Google Fonts: Inter for body text, EB Garamond for academic-style headings -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Noto+Sans:wght@400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=EB+Garamond:wght@600;800&family=Roboto+Mono&display=swap"
         rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="work_style.css">
+    <!-- Dependencies -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body class="dark-theme">
+<body>
 
-    <header id="top-nav">
-        <div class="container">
-            <div class="nav-content">
-                <a href="#home" class="logo">Your Name</a>
-                <nav>
-                    <ul>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#working-experience">Experience</a></li>
-                        <li><a href="#teaching-supervision">Teaching &amp; Supervision</a></li>
-                        <li><a href="#engagement">Engagement &amp; Activities</a></li>
-                        <li><a href="#research">Research &amp; Projects</a></li>
-                        <li><a href="#education">Education</a></li>
-                        <li><a href="#publication-list">Publications</a></li>
-                    </ul>
-                </nav>
-                <div class="controls">
-                    <button id="theme-switcher" title="Toggle Theme">
-                        <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                        </svg>
-                        <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="5"></circle>
-                            <line x1="12" y1="1" x2="12" y2="3"></line>
-                            <line x1="12" y1="21" x2="12" y2="23"></line>
-                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                            <line x1="1" y1="12" x2="3" y2="12"></line>
-                            <line x1="21" y1="12" x2="23" y2="12"></line>
-                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <main id="main-content">
-        <section id="home" class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <img src="head.jpg" alt="Your Name" class="profile-pic">
-                    <h1>Your Name</h1>
-                    <p>Your Title, Department, University</p>
-                    <div class="social-links">
-                        <!-- <a href="#" title="Google Scholar">...</a> -->
-                        <a href="mailto:your_name@uni.ac.uk" title="Email" class="email">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M2 5c0-1.1.9-2 2-2h16c1.1 0 2 .9 2 2v14c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V5zm18 1L12 11.5 4 6v2l8 5.5 8-5.5V6zm0 12H4V9.5l8 5.5 8-5.5V18z" />
-                            </svg>
-                        </a>
-                        <a href="#" title="University Profile">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="currentColor">
-                                <path d="M12 3L1 9l11 6l9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82Z" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="about" class="section-alt">
-            <div class="container">
-                <h2>About Me</h2>
-                <p>
-                    Placeholder text for your biography. Briefly introduce yourself, your academic background, and your
-                    journey.
-                    You can talk about your education, previous positions, and what brought you to your current role.
-                    This is a great place to make a personal connection with visitors.
-                </p>
-            </div>
-        </section>
-
-        <section id="working-experience">
-            <div class="container">
-                <h2>Working Experience</h2>
-                <ul>
-                    <li><strong>[Job Title]</strong>, [Company/Institution Name], [City, Country] (Year - Year/Present)
-                    </li>
-                    <li><strong>[Job Title]</strong>, [Company/Institution Name], [City, Country] (Year - Year)</li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="teaching-supervision" class="section-alt">
-            <div class="container">
-                <h2>Teaching & Supervision</h2>
-                <div class="two-column-layout">
-                    <div class="column">
-                        <h3>Teaching</h3>
-                        <p>Information about your teaching activities. You can list the courses you currently teach or
-                            have taught in the past.</p>
-                        <ul>
-                            <li>Course Code - Course Title (Semester/Year)</li>
-                            <li>Course Code - Course Title (Semester/Year)</li>
-                        </ul>
-                    </div>
-                    <div class="column">
-                        <h3>Supervision</h3>
-                        <p>Information about PhD students or postdoctoral researchers you are supervising or have
-                            supervised.</p>
-                        <ul>
-                            <li><strong>Current:</strong> Student Name, "Thesis Topic"</li>
-                            <li><strong>Past:</strong> Student Name, "Thesis Topic" (Year)</li>
-                        </ul>
-                        <p>I am currently accepting new PhD students. Please <a href="#contact">contact me</a> if you
-                            are interested.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="engagement">
-            <div class="container">
-                <h2>Engagement &amp; Activities</h2>
-                <div class="two-column-layout">
-                    <div class="column">
-                        <h3>Engagement</h3>
-                        <p>
-                            Describe your public, professional, or academic engagement activities. This can include things like
-                    journal reviewing, conference organization, public talks, or collaborations with industry.
-                        </p>
-                        <ul>
-                            <li>Reviewer for [Journal/Conference Name]</li>
-                            <li>Organizing committee member for [Conference Name]</li>
-                        </ul>
-                    </div>
-                    <div class="column">
-                        <h3>Activities</h3>
-                        <ul>
-                            <li><strong>Project Title 1:</strong> A brief description of the project, its goals, and
-                                your role.</li>
-                            <li><strong>Project Title 2:</strong> A brief description of the project, its goals, and
-                                your role.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="research" class="section-alt">
-            <div class="container">
-                <h2>Research Interest &amp; Projects</h2>
-                <div class="two-column-layout">
-                    <div class="column">
-                        <h3>Interests</h3>
-                        <p>
-                            Describe your primary and secondary research interests here. You can list them or write a
-                            short paragraph about each.
-                            For example: My research focuses on [Your Field], with a special interest in [Specific Topic
-                            1], [Specific Topic 2], and [Specific Topic 3].
-                        </p>
-                        <ul>
-                            <li>Keyword 1</li>
-                            <li>Keyword 2</li>
-                        </ul>
-                    </div>
-                    <div class="column">
-                        <h3>Projects</h3>
-                        <ul>
-                            <li><strong>Project Title 1:</strong> A brief description of the project, its goals, and
-                                your role.</li>
-                            <li><strong>Project Title 2:</strong> A brief description of the project, its goals, and
-                                your role.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="education">
-            <div class="container">
-                <h2>Education</h2>
-                <ul>
-                    <li><strong>PhD in [Your Field]</strong>, University Name, City, Country (Year)</li>
-                    <li><strong>MSc in [Your Field]</strong>, University Name, City, Country (Year)</li>
-                    <li><strong>BSc in [Your Field]</strong>, University Name, City, Country (Year)</li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="publication-list" class="section-alt">
-            <div class="container">
-                <h2>Publication List</h2>
-                <p>A selection of your key publications. You can organize them by year or type (e.g., journal articles,
-                    conference papers, books).</p>
-                <ul class="publication-list">
-                    <li>Author(s), (Year). "Title of Publication." <em>Journal/Conference Name</em>, Volume(Issue),
-                        pages. <a href="https://doi.org/xxxx">https://doi.org/xxxx</a></li>
-                    <li>Author(s), (Year). "Title of Publication." <em>Journal/Conference Name</em>, Volume(Issue),
-                        pages. <a href="https://doi.org/xxxx">https://doi.org/xxxx</a></li>
-                    <li>Author(s), (Year). "Title of Publication." <em>Journal/Conference Name</em>, Volume(Issue),
-                        pages. <a href="https://doi.org/xxxx">https://doi.org/xxxx</a></li>
-                </ul>
-            </div>
-        </section>
-    </main>
-
-    <footer id="footer" class="section-alt">
-        <div class="container">
-            <p>&copy; <span id="current-year"></span> Your Name. All rights reserved.</p>
-            <div class="powered-by">
-                <span style="font-size: 0.9em; margin-right: 10px;">Powered by</span>
-                <a href="https://html.spec.whatwg.org/" title="HTML5">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24"
-                        height="24">
-                        <path fill-rule="evenodd"
-                            d="M1.5 0h21l-1.9 21.2L12 24l-8.6-2.8L1.5 0zm15.6 5H6.3l.6 7.2h7.9l-.4 4.1-2.4.7-2.4-.7-.1-1.8H7.2l.3 4.4 4.5 1.2 4.5-1.2.7-8.7H9.7l-.2-2.3h7.7L17.1 5z" />
-                    </svg>
-                </a>
-                <a href="https://www.w3.org/Style/CSS/Specs.html" title="CSS3">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24"
-                        height="24">
-                        <path fill-rule="evenodd"
-                            d="M1.5 0h21l-1.9 21.2L12 24l-8.6-2.8L1.5 0zm16.3 4.7H6.2l.2 2.3h10l-.2 2.3H9.4l.2 2.3h7l-.4 4.1-2.7.7-2.7-.7-.2-1.8H7l.4 4.4 4.6 1.2 4.6-1.2 1.2-13.6z" />
-                    </svg>
-                </a>
-                <a href="https://www.javascript.com/" title="JavaScript">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24"
-                        height="24">
-                        <path fill-rule="evenodd"
-                            d="M1.5 0h21l-1.9 21.2L12 24l-8.6-2.8L1.5 0zm9.5 5v13H6.5v-2.5h2V5H11zm7.5 0h-5.5v7.5h3.5v2.5h-3.5v3h6V9H16V7.5h2.5V5z" />
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </footer>
-
-    <div id="print-controls">
-        <button id="export-pdf" title="Export to PDF">
+    <!-- Floating Action Button Toolbar -->
+    <div class="fab-toolbar">
+        <button class="icon-btn" id="theme-switcher" data-tooltip="Switch to Light Theme">
+            <span class="theme-icon-light">
+                <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </span>
+            <span class="theme-icon-dark">
+                <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg></span>
+        </button>
+        <button class="icon-btn" id="export-pdf" data-tooltip="Export PDF File">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -261,9 +54,201 @@
         </button>
     </div>
 
-    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script-->
+    <!-- The header is the 'home' section -->
+    <header id="home">
+        <div class="hero-content">
+            <div class="avatar-container">
+                <img src="head.jpg" alt="Profile" class="profile-pic">
+            </div>
+            <h1>Professor John Doe</h1>
+            <p class="title-sub">Chair of Computational Department | Excellence University</p>
+            <div class="social-links">
+                <!-- <a href="mailto:john.doe@university.ac.uk" title="Email" class="email"
+                    style="font-family: 'Roboto Mono'; margin-top: 20px; color: var(--text-muted); text-decoration: none;">
+                    john.doe@university.ac.uk
+                </a> -->
+                <a href="mailto:john.doe@university.ac.uk" title="Email" class="email">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M2 5c0-1.1.9-2 2-2h16c1.1 0 2 .9 2 2v14c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V5zm18 1L12 11.5 4 6v2l8 5.5 8-5.5V6zm0 12H4V9.5l8 5.5 8-5.5V18z" />
+                    </svg>
+                </a>
+                <a href="#" title="University Profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path d="M12 3L1 9l11 6l9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82Z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <nav id="navbar">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#research">Research</a>
+        <a href="#education">Education</a>
+        <a href="#award">Awards</a>
+        <a href="#publications">Publications</a>
+    </nav>
+
+    <!-- All content sections are wrapped in 'main' for the PDF script to find them -->
+    <main id="main-content">
+        <section id="about">
+            <div class="container">
+                <h2>About Me</h2>
+                <p>This is your personal biography. This version uses jQuery-based dynamic monitoring. When you scroll
+                    down, the content will enter with an animation. The default theme has been optimised as a 'Midnight'
+                    mode for extended reading. The avatar uses CSS 'aspect-ratio' to force a perfect circle, so it will
+                    not deform regardless of the original image's aspect ratio.</p>
+            </div>
+        </section>
+
+        <section id="experience">
+            <div class="container">
+                <h2>Working Experience</h2>
+                <!-- FIX: Changed from divs to a ul with li.cv-item -->
+                <ul>
+                    <li class="cv-item">
+                        <div class="date">2020 - PRESENT</div>
+                        <strong>Tenured Professor</strong>, Dept. of Computer Science
+                        <p>Directing the Lab for Trustworthy AI and leading cross-disciplinary research programmes.</p>
+                    </li>
+                    <li class="cv-item">
+                        <div class="date">2015 - 2020</div>
+                        <strong>Assistant Professor</strong>, Imperial College London
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="teaching">
+            <div class="container">
+                <h2>Teaching & Supervision</h2>
+                <!-- FIX: Added 'two-column-layout' class for PDF script -->
+                <div class="dual-column two-column-layout">
+                    <!-- FIX: Added 'column' class for PDF script -->
+                    <div class="animate-card column">
+                        <h3>Course Leadership</h3>
+                        <ul>
+                            <li>CS301: Deep Learning Systems</li>
+                            <li>PHI202: Ethics of Automation</li>
+                        </ul>
+                    </div>
+                    <div class="animate-card column">
+                        <h3>Supervision</h3>
+                        <ul>
+                            <li>8 Active PhD Candidates</li>
+                            <li>20+ MSc Dissertations Supervised</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="research">
+            <div class="container">
+                <h2>Research Interests</h2>
+                <!-- FIX: Added 'two-column-layout' class for PDF script -->
+                <div class="dual-column two-column-layout">
+                    <!-- FIX: Added 'column' class for PDF script -->
+                    <div class="animate-card column">
+                        <h3>Interests</h3>
+                        <p>Machine Learning, Algorithmic Fairness, Natural Language Processing.</p>
+                    </div>
+                    <div class="animate-card column">
+                        <h3>Projects</h3>
+                        <p>UKRI Grant: "Towards Fairer Algorithms" (£2.1M, PI)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education">
+            <div class="container">
+                <h2>Education History</h2>
+                <!-- FIX: Changed from divs to a ul with li.cv-item -->
+                <ul>
+                    <li class="cv-item">
+                        <strong>PhD in Engineering</strong>, University of Cambridge (2008 - 2012)
+                        <p>Thesis: "Future Energy Systems and Sustainability"</p>
+                    </li>
+                    <li class="cv-item">
+                        <strong>MEng (First Class Honours)</strong>, Imperial College London (2004 - 2008)
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="award">
+            <div class="container">
+                <h2>Awards & Honors</h2>
+                <!-- FIX: Changed from divs to a ul with li.cv-item -->
+                <ul>
+                    <li class="cv-item">
+                        <strong>Best Paper Award</strong>, NeurIPS Conference (2021)
+                        <p>For outstanding contributions to machine learning theory.</p>
+                    </li>
+                    <li class="cv-item">
+                        <strong>Turing Fellowship</strong>, The Alan Turing Institute (2019)
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="publications">
+            <div class="container">
+                <h2>Selected Publications</h2>
+                <!-- FIX: Changed to ul and li.cv-item, keeping publication-list for potential specific styling -->
+                <ul class="publication-list">
+                    <li class="cv-item"><strong>Zhang, A.</strong> (2024). "The Geometry of Ethical Alignment".
+                        <em>Nature Communications</em>. <a
+                            href="https://doi.org/10.1038/s41467-024-12345-6">https://doi.org/10.1038/s41467-024-12345-6</a>
+                    </li>
+                    <li class="cv-item">Li, W., & <strong>Zhang, A.</strong> (2022). "Privacy Preserving LLMs". <em>ICML
+                            Proceedings</em>. <a
+                            href="https://proceedings.mlr.press/v162/li22a.html">https://proceedings.mlr.press/v162/li22a.html</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer
+        style="padding: 60px; text-align: center; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem;">
+        <p>&copy; 2025 - <span id="current-year"></span> Your Name. All rights reserved.</p>
+        <div class="powered-by">
+            <span style="font-size: 0.9em; margin-right: 10px;">Powered by</span>
+            <a href="https://html.spec.whatwg.org/" title="HTML5">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                    <path fill-rule="evenodd"
+                        d="M1.5 0h21l-1.9 21.2L12 24l-8.6-2.8L1.5 0zm15.6 5H6.3l.6 7.2h7.9l-.4 4.1-2.4.7-2.4-.7-.1-1.8H7.2l.3 4.4 4.5 1.2 4.5-1.2.7-8.7H9.7l-.2-2.3h7.7L17.1 5z" />
+                </svg>
+            </a>
+            <a href="https://www.w3.org/Style/CSS/Specs.html" title="CSS3">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                    <path fill-rule="evenodd"
+                        d="M1.5 0h21l-1.9 21.2L12 24l-8.6-2.8L1.5 0zm16.3 4.7H6.2l.2 2.3h10l-.2 2.3H9.4l.2 2.3h7l-.4 4.1-2.7.7-2.7-.7-.2-1.8H7l.4 4.4 4.6 1.2 4.6-1.2 1.2-13.6z" />
+                </svg>
+            </a>
+            <a href="https://www.javascript.com/" title="JavaScript">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                    <path fill-rule="evenodd"
+                        d="M1.5 0h21l-1.9 21.2L12 24l-8.6-2.8L1.5 0zm9.5 5v13H6.5v-2.5h2V5H11zm7.5 0h-5.5v7.5h3.5v2.5h-3.5v3h6V9H16V7.5h2.5V5z" />
+                </svg>
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        // All custom scripts have been moved to working_script.js
+    </script>
+
+    <!-- Scripts for PDF Generation -->
     <script src="jspdf.umd.min.js"></script>
-    <script src="script.js"></script>
+    <script src="work_script.js"></script>
 </body>
 
 </html>
