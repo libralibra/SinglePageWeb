@@ -65,7 +65,7 @@
             padding: 20px;
             position: relative;
         }
-        
+
         /* FIX: Re-center hero content */
         .hero-content {
             display: flex;
@@ -106,7 +106,7 @@
             font-weight: 400;
             margin-top: 10px;
         }
-        
+
         .social-links {
             margin-top: 20px;
         }
@@ -166,30 +166,22 @@
             right: 65px;
         }
 
-        .theme-menu {
+        /* Toggle icon visibility */
+        .theme-icon-light,
+        [data-theme="dark"] .theme-icon-dark {
             display: none;
-            position: absolute;
-            right: 60px;
-            top: 0;
-            background: var(--bg-alt);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 10px;
-            box-shadow: var(--shadow);
-            z-index: 2001;
         }
 
-        .theme-opt {
-            padding: 8px 15px;
-            cursor: pointer;
-            white-space: nowrap;
-            border-radius: 4px;
-            color: var(--text-main);
+        [data-theme="dark"] .theme-icon-light {
+            display: inline;
         }
 
-        .theme-opt:hover {
-            background: var(--primary);
-            color: var(--bg-page);
+        [data-theme="oxford"] .theme-icon-dark {
+            display: inline;
+        }
+
+        [data-theme="oxford"] .theme-icon-light {
+            display: none;
         }
 
         /* 5. Content Sections & Animations */
@@ -208,9 +200,9 @@
             padding-bottom: 10px;
             margin-bottom: 40px;
         }
-        
+
         h3 {
-             color: var(--accent);
+            color: var(--accent);
         }
 
         .dual-column {
@@ -218,7 +210,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 50px;
         }
-        
+
         /* FIX: Change selector from .cv-item to li.cv-item */
         li.cv-item {
             list-style: none;
@@ -255,6 +247,26 @@
             font-family: 'Roboto Mono', monospace;
             color: var(--accent);
             font-weight: bold;
+        }
+
+        /* Links */
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--primary);
+        }
+
+        /* Ensure publications links are also styled correctly */
+        #publications a {
+            color: var(--accent);
+        }
+
+        #publications a:hover {
+            color: var(--primary);
         }
 
         /* Navigation Bar */
@@ -304,11 +316,9 @@
 
     <!-- Floating Action Button Toolbar -->
     <div class="fab-toolbar">
-        <button class="icon-btn" id="theme-trigger" data-tooltip="switch theme">🎨
-            <div class="theme-menu">
-                <div class="theme-opt" onclick="setTheme('dark')">Midnight Dark</div>
-                <div class="theme-opt" onclick="setTheme('oxford')">Oxford Light</div>
-            </div>
+        <button class="icon-btn" id="theme-switcher" data-tooltip="Switch theme">
+            <span class="theme-icon-light">☀️</span>
+            <span class="theme-icon-dark">🌙</span>
         </button>
         <button class="icon-btn" id="export-pdf" data-tooltip="export PDF">📄</button>
     </div>
@@ -322,7 +332,8 @@
             <h1>Professor Alex Zhang</h1>
             <p class="title-sub">Chair of Computational Ethics | Excellence University</p>
             <div class="social-links">
-                 <a href="mailto:alex.zhang@university.ac.uk" title="Email" class="email" style="font-family: 'Roboto Mono'; margin-top: 20px; color: var(--text-muted); text-decoration: none;">
+                <a href="mailto:alex.zhang@university.ac.uk" title="Email" class="email"
+                    style="font-family: 'Roboto Mono'; margin-top: 20px; color: var(--text-muted); text-decoration: none;">
                     alex.zhang@university.ac.uk
                 </a>
             </div>
@@ -342,9 +353,12 @@
     <!-- All content sections are wrapped in 'main' for the PDF script to find them -->
     <main id="main-content">
         <section id="about">
-             <div class="container">
+            <div class="container">
                 <h2>About Me</h2>
-                <p>This is your personal biography. This version uses jQuery-based dynamic monitoring. When you scroll down, the content will enter with an animation. The default theme has been optimised as a 'Midnight' mode for extended reading. The avatar uses CSS 'aspect-ratio' to force a perfect circle, so it will not deform regardless of the original image's aspect ratio.</p>
+                <p>This is your personal biography. This version uses jQuery-based dynamic monitoring. When you scroll
+                    down, the content will enter with an animation. The default theme has been optimised as a 'Midnight'
+                    mode for extended reading. The avatar uses CSS 'aspect-ratio' to force a perfect circle, so it will
+                    not deform regardless of the original image's aspect ratio.</p>
             </div>
         </section>
 
@@ -393,7 +407,7 @@
         <section id="research">
             <div class="container">
                 <h2>Research Interests</h2>
-                 <!-- FIX: Added 'two-column-layout' class for PDF script -->
+                <!-- FIX: Added 'two-column-layout' class for PDF script -->
                 <div class="dual-column two-column-layout">
                     <!-- FIX: Added 'column' class for PDF script -->
                     <div class="animate-card column">
@@ -412,7 +426,7 @@
             <div class="container">
                 <h2>Education History</h2>
                 <!-- FIX: Changed from divs to a ul with li.cv-item -->
-                 <ul>
+                <ul>
                     <li class="cv-item">
                         <strong>PhD in Engineering</strong>, University of Cambridge (2008 - 2012)
                         <p>Thesis: "Future Energy Systems and Sustainability"</p>
@@ -425,15 +439,15 @@
         </section>
 
         <section id="award">
-             <div class="container">
+            <div class="container">
                 <h2>Awards & Honors</h2>
                 <!-- FIX: Changed from divs to a ul with li.cv-item -->
                 <ul>
-                     <li class="cv-item">
+                    <li class="cv-item">
                         <strong>Best Paper Award</strong>, NeurIPS Conference (2021)
                         <p>For outstanding contributions to machine learning theory.</p>
                     </li>
-                     <li class="cv-item">
+                    <li class="cv-item">
                         <strong>Turing Fellowship</strong>, The Alan Turing Institute (2019)
                     </li>
                 </ul>
@@ -445,8 +459,14 @@
                 <h2>Selected Publications</h2>
                 <!-- FIX: Changed to ul and li.cv-item, keeping publication-list for potential specific styling -->
                 <ul class="publication-list">
-                    <li class="cv-item"><strong>Zhang, A.</strong> (2024). "The Geometry of Ethical Alignment". <em>Nature Communications</em>. <a href="https://doi.org/10.1038/s41467-024-12345-6">https://doi.org/10.1038/s41467-024-12345-6</a></li>
-                    <li class="cv-item">Li, W., & <strong>Zhang, A.</strong> (2022). "Privacy Preserving LLMs". <em>ICML Proceedings</em>. <a href="https://proceedings.mlr.press/v162/li22a.html">https://proceedings.mlr.press/v162/li22a.html</a></li>
+                    <li class="cv-item"><strong>Zhang, A.</strong> (2024). "The Geometry of Ethical Alignment".
+                        <em>Nature Communications</em>. <a
+                            href="https://doi.org/10.1038/s41467-024-12345-6">https://doi.org/10.1038/s41467-024-12345-6</a>
+                    </li>
+                    <li class="cv-item">Li, W., & <strong>Zhang, A.</strong> (2022). "Privacy Preserving LLMs". <em>ICML
+                            Proceedings</em>. <a
+                            href="https://proceedings.mlr.press/v162/li22a.html">https://proceedings.mlr.press/v162/li22a.html</a>
+                    </li>
                 </ul>
             </div>
         </section>
@@ -458,48 +478,7 @@
     </footer>
 
     <script>
-        // 1. Theme Switcher (jQuery)
-        $('#theme-trigger').click(function (e) {
-            e.stopPropagation();
-            $('.theme-menu').fadeToggle(200);
-        });
-        $(document).click(function () { $('.theme-menu').fadeOut(200); });
-        function setTheme(t) { $('html').attr('data-theme', t); }
-
-        // 2. Animation Effects (jQuery)
-        $(document).ready(function () {
-            // Initialise reveal-on-scroll animation
-            const revealOnScroll = function () {
-                $('section').each(function () {
-                    const top = $(this).offset().top;
-                    const scroll = $(window).scrollTop();
-                    if (scroll + $(window).height() > top + 150) {
-                        // The CSS transition will handle the animation now
-                        $(this).css({ 'transform': 'translateY(0)', 'opacity': '1', 'transition': 'all 0.8s ease-out' });
-                    }
-                });
-            };
-
-            // FIX: Selector changed from .cv-item to li.cv-item for hover effect
-            $('li.cv-item').hover(
-                function () { $(this).stop().animate({ paddingLeft: '25px' }, 200); },
-                function () { $(this).stop().animate({ paddingLeft: '15px' }, 200); }
-            );
-
-            // Scroll listener for navigation highlighting
-            $(window).scroll(function () {
-                revealOnScroll();
-                let scrollDistance = $(window).scrollTop();
-                $('section').each(function (i) {
-                    if ($(this).position().top <= scrollDistance + 100) {
-                        $('#navbar a.active').removeClass('active');
-                        $('#navbar a').eq(i).addClass('active');
-                    }
-                });
-            }).scroll();
-        });
-
-        // The old PDF export function has been removed.
+        // All custom scripts have been moved to working_script.js
     </script>
 
     <!-- Scripts for PDF Generation -->

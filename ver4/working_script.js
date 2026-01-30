@@ -1,14 +1,17 @@
 // This script is a modified version of script.js, tailored for working.html.
-// It includes a custom PDF generation logic to handle the specific HTML structure of working.html.
+// It includes a custom PDF generation logic and all interactive behaviours.
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if the PDF generation library is available
-    if (typeof window.jspdf === 'undefined') {
-        console.error('jsPDF library is not loaded. PDF export will not work.');
-        return;
-    }
 
+    // --- PDF Generation Function (defined before use) ---
     const exportPDF = () => {
+        // Check if the PDF generation library is available at the moment of click
+        if (typeof window.jspdf === 'undefined') {
+            console.error('jsPDF library is not loaded. PDF export will not work.');
+            alert('Error: The PDF generation library (jsPDF) is not available.');
+            return;
+        }
+
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF({ unit: 'pt', format: 'a4' });
 
@@ -24,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 doc.addPage();
                 pageCount++;
                 cursorY = margin;
-                // Add header to new page, except for the very first page which is handled later
                 if (pageCount > 1) {
                     addHeaderFooter(true); 
                 }
@@ -34,16 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const addHeaderFooter = (isSubsequentPage = false) => {
             const d = new Date();
             const versionString = `v.${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
-
-            // Data Extraction
             const nameText = document.querySelector('#home h1')?.textContent.trim() || "CV";
             const jobTitle = document.querySelector('#home p.title-sub')?.textContent.trim() || "";
             const emailEl = document.querySelector('.hero-content .email');
             const emailText = emailEl ? emailEl.getAttribute('href').replace(/^mailto:/i, '') : "";
             const headerInfo = [nameText, jobTitle, emailText].filter(part => part.length > 0).join(' | ');
 
-            // This loop is not ideal if called inside checkPageBreak. We apply it once.
-            // Let's modify to apply to the current page.
             doc.setFontSize(8);
             doc.setFont('Helvetica', 'normal');
             doc.setTextColor(150);
@@ -66,12 +64,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-
         // --- Content Generation ---
         doc.setFont('Helvetica', 'normal');
         doc.setTextColor(0, 0, 0);
         
-        // --- 0. Email Data Extraction ---
         const emailElement = document.querySelector('.hero-content .email');
         let emailText = "";
         let emailHref = "";
@@ -81,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
             emailText = emailHref.replace(/^mailto:/i, ''); 
         }
 
-        // 1. Title / Hero section
         const heroName = document.querySelector('#home h1');
         const heroTitle = document.querySelector('#home p.title-sub');
         
@@ -113,7 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
         doc.line(margin, cursorY, pageWidth - margin, cursorY);
         cursorY += 25;
 
-        // 2. Loop through sections
         document.querySelectorAll('#main-content section:not(#home)').forEach(section => {
             const h2 = section.querySelector('h2');
             if (!h2) return;
@@ -125,6 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const titleText = h2.textContent.trim().toUpperCase();
             doc.text(titleText, margin, cursorY);
             cursorY += 3;
+            // MODIFICATION: Set a darker colour for the underline
+            doc.setDrawColor(150);
             doc.line(margin, cursorY, margin + doc.getTextWidth(titleText), cursorY);
             cursorY += 20;
 
@@ -144,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     addText(node.textContent);
                     break;
                 case 'ul':
-                    addList(node); // This will now use the specialised function
+                    addList(node);
                     break;
                 case 'div':
                     if (node.classList.contains('two-column-layout')) {
@@ -179,15 +175,13 @@ document.addEventListener('DOMContentLoaded', () => {
             cursorY += 20;
         }
 
-        // --- SPECIALISED FUNCTION FOR working.html ---
         function addCvItem(li) {
-            checkPageBreak(40); // Reserve space for a CV item
+            checkPageBreak(40);
         
             const dateText = li.querySelector('.date')?.textContent.trim() || '';
             const strongText = li.querySelector('strong')?.textContent.trim() || '';
             const pText = li.querySelector('p')?.textContent.trim() || '';
             
-            // Clone the 'li' to get remaining text without modifying the live DOM
             const liClone = li.cloneNode(true);
             liClone.querySelector('.date')?.remove();
             liClone.querySelector('strong')?.remove();
@@ -198,12 +192,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
             doc.text('•', margin, cursorY);
         
-            // Set fonts for the main line
-            doc.setFont('Helvetica', 'bold');
+            // MODIFICATION: Set font to normal instead of bold
+            doc.setFont('Helvetica', 'normal');
             doc.setFontSize(11);
             doc.setTextColor(0, 0, 0);
 
-            // Determine width for the main text, leaving space for the date
             const availableWidth = dateText ? contentWidth - 15 - doc.getTextWidth(dateText) - 10 : contentWidth - 15;
             const mainLines = doc.splitTextToSize(mainLineText, availableWidth);
             doc.text(mainLines, margin + 15, cursorY);
@@ -220,27 +213,24 @@ document.addEventListener('DOMContentLoaded', () => {
             cursorY += height;
         
             if (pText) {
-                cursorY += 5; // Add a small gap before the description
+                cursorY += 5;
                 doc.setFont('Times', 'normal');
                 doc.setFontSize(11);
-                doc.setTextColor(50); // Lighter text for description
+                doc.setTextColor(50);
                 const pLines = doc.splitTextToSize(pText, contentWidth - 25);
                 doc.text(pLines, margin + 25, cursorY);
                 cursorY += pLines.length * 12;
             }
         
-            cursorY += 10; // Add spacing after the entire item
+            cursorY += 10;
         }
 
-        // --- MODIFIED addList FUNCTION ---
         function addList(ul) {
             const items = ul.querySelectorAll(':scope > li');
             for (const li of items) {
-                // If it's a rich 'cv-item', use the specialised function
                 if (li.classList.contains('cv-item')) {
                     addCvItem(li);
                 } else {
-                    // Otherwise, use the original, simple logic
                     doc.setFont('Times', 'normal');
                     doc.setFontSize(11);
                     doc.setTextColor(0, 0, 0);
@@ -263,7 +253,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Add headers and footers for the first time
         addHeaderFooter(false);
         finaliseHeaderFooter();
         
@@ -273,10 +262,58 @@ document.addEventListener('DOMContentLoaded', () => {
         doc.save(fileName);
     };
 
+    // --- Event Listeners ---
+    
+    // 1. Theme Switcher
+    const themeSwitcher = document.getElementById('theme-switcher');
+    if (themeSwitcher) {
+        themeSwitcher.addEventListener('click', () => {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'oxford' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            const newTooltip = newTheme === 'dark' ? 'Switch to Oxford Light theme' : 'Switch to Midnight Dark theme';
+            themeSwitcher.setAttribute('data-tooltip', newTooltip);
+        });
+    }
+
+    // 2. PDF Export
     const pdfButton = document.getElementById('export-pdf');
     if (pdfButton) {
         pdfButton.addEventListener('click', exportPDF);
-    } else {
-        console.error('PDF export button with ID "export-pdf" not found.');
     }
+
+    // --- Animations & Scroll Effects ---
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('#navbar a');
+
+    const revealOnScroll = () => {
+        const windowHeight = window.innerHeight;
+        const scrollTop = window.scrollY;
+
+        sections.forEach(sec => {
+            const secTop = sec.offsetTop;
+            if (scrollTop + windowHeight > secTop + 100) {
+                sec.style.opacity = '1';
+                sec.style.transform = 'translateY(0)';
+                sec.style.transition = 'all 0.8s ease-out';
+            }
+        });
+
+        // Highlight active nav link
+        let activeFound = false;
+        sections.forEach((sec, i) => {
+            if (sec.offsetTop <= scrollTop + 100) {
+                navLinks.forEach(link => link.classList.remove('active'));
+                if(navLinks[i]) navLinks[i].classList.add('active');
+                activeFound = true;
+            }
+        });
+        if (!activeFound && navLinks.length > 0) {
+             navLinks.forEach(link => link.classList.remove('active'));
+        }
+    };
+
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll(); // Initial check on load
 });
